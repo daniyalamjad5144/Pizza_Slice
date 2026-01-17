@@ -1,42 +1,39 @@
-# Deploying on Replit
+# Replit Deployment Guide (The Easiest Way)
 
-Since you want to deploy on Replit, I have optimized the project so you can run EVERYTHING (Frontend + Backend) in a **Single Repl**.
+I have automated everything for you. You do not need to run manual commands anymore.
 
-## Step 1: Import Project
-1.  Go to [Replit.com](https://replit.com/new).
-2.  Click **Import from GitHub**.
-3.  Select your repo: `Pizza_Slice`.
+## Step 1: Import to Replit
+1.  Log in to [Replit.com](https://replit.com).
+2.  Click **Create Repl** -> **Import from GitHub**.
+3.  Choose your repository: `Pizza_Slice`.
 4.  Language: **Node.js**.
 
-## Step 2: Install & Build
-Once the project is imported, you need to build the frontend so the backend can serve it.
+## Step 2: Set Database Secret
+Before you run it, you must connect your database.
+1.  In your new Repl, verify the `Secrets` (Lock icon) in the Tools panel (left side usually).
+2.  Click "New Secret":
+    *   **Key**: `MONGO_URI`
+    *   **Value**: Paste your MongoDB connection string.
+3.  Click **Add Secret**.
 
-1.  Open the **Shell** (Terminal) in Replit.
-2.  Run this command to build the frontend:
+## Step 3: Click Run
+1.  Just hit the big green **Run** button at the top.
+2.  **Wait**:
+    *   The first time, it will take a few minutes because it will automatically:
+        *   Install all libraries.
+        *   Build your React Frontend.
+        *   Start the Backend Server.
+    *   You will see logs like "🎨 Frontend build not found. Building now...".
+3.  Once finished, you will see "🚀 Starting Server..." and "Server running on port...".
+4.  A "Webview" window will open showing your Pizza Website!
+
+## Optional: Update Frontend
+If you make changes to the frontend code in Replit:
+1.  You need to rebuild it manually.
+2.  In the Shell (Terminal), type:
     ```bash
-    cd frontend && npm install && npm run build
+    rm -rf frontend/dist && bash start.sh
     ```
-    *(Wait for it to finish... it will create a `dist` folder)*
+    (This deletes the old build and forces a new one).
 
-3.  Now go back to the root and install backend dependencies:
-    ```bash
-    cd ..
-    cd backend && npm install
-    ```
-
-## Step 3: Configure Database
-1.  In Replit, look for the **Secrets** (Lock icon) in the Tools panel.
-2.  Add a new secret:
-    *   Key: `MONGO_URI`
-    *   Value: (Your MongoDB Connection String)
-
-## Step 4: Run
-1.  Click the **Run** button.
-2.  Replit might ask "What command to run?".
-3.  Configure `.replit` or just enter:
-    ```bash
-    cd backend && node server.js
-    ```
-
-## Why this works?
-I modified your `backend/server.js`. Now, if it detects it is running on Replit, it will automatically look for the `frontend/dist` folder and show your website. You don't need two separate servers!
+That's it! Your entire app (Frontend + Backend) is running in one place.
