@@ -1,0 +1,20 @@
+[
+    {
+        "name": "pizza-frontend",
+        "root": "frontend",
+        "buildCommand": "npm install && npm run build",
+        "startCommand": "npm start",
+        "env": {
+            "VITE_API_URL": "${{ pizza-backend.URL }}/api"
+        }
+    },
+    {
+        "name": "pizza-backend",
+        "root": "backend",
+        "buildCommand": "npm install",
+        "startCommand": "npm start",
+        "env": {
+            "MONGO_URI": "YOUR_MONGO_URI_HERE"
+        }
+    }
+]
