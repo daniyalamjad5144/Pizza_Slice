@@ -538,3 +538,5 @@ app.listen(PORT, async () => {
         console.error('Admin seed/migration failed:', e.message);
     }
 });
+
+export default app;
