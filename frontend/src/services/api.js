@@ -1,8 +1,22 @@
 import axios from 'axios';
 
+// Smart Base URL detection
+const getBaseUrl = () => {
+    // 1. If explicit env var is set, use it
+    if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
+
+    // 2. If valid window object (browser) and localhost, use local backend
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+        return 'http://localhost:5000/api';
+    }
+
+    // 3. Fallback for Replit/Production (Relative path works automatically)
+    return '/api';
+};
+
 // Create an axios instance
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: getBaseUrl(),
     headers: {
         'Content-Type': 'application/json',
     },
