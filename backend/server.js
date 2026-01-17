@@ -6,6 +6,11 @@ import User from './models/User.js';
 import Order from './models/Order.js';
 import Pizza from './models/Pizza.js';
 import Topping from './models/Topping.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -391,10 +396,19 @@ app.get('/api/admin/stats', async (req, res) => {
     }
 });
 
-// Root Route
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
+// Serve Static Assets in Production/Replit
+if (process.env.NODE_ENV === 'production' || process.env.REPL_ID) {
+    const frontendPath = path.join(__dirname, '../frontend/dist');
+    app.use(express.static(frontendPath));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(frontendPath, 'index.html'));
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running...');
+    });
+}
 
 // Start Server
 app.listen(PORT, async () => {
