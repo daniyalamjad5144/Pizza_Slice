@@ -32,7 +32,7 @@ const Hero = () => {
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                     <span className="text-primary font-bold tracking-wider uppercase mb-2 block">
                         Best Pizza in Town
@@ -67,9 +67,10 @@ const Hero = () => {
                 >
                     <motion.img
                         style={{ y: y2 }}
-                        src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80"
+                        src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80"
                         alt="Delicious Pizza"
                         className="w-full max-w-lg mx-auto drop-shadow-2xl rounded-full border-4 border-white"
+                        loading="eager"
                     />
 
                     {/* Floating Ingredients (Decorative) */}

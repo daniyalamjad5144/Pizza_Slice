@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { pizzas } from '../../data/pizzas';
+import { usePizza } from '../../context/PizzaContext';
 import Button from '../ui/Button';
 import { useCart } from '../../context/CartContext';
 import { Star } from 'lucide-react';
 
 const Featured = () => {
+    const { pizzas } = usePizza();
     const { addToCart } = useCart();
     const featuredPizzas = pizzas.slice(0, 3);
 
@@ -33,16 +34,25 @@ const Featured = () => {
                                     alt={pizza.name}
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                                 />
-                                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                                    <span className="font-bold text-sm">{pizza.rating}</span>
+                                <div className="absolute top-4 right-4 flex flex-col gap-2 items-end">
+                                    <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                                        <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                        <span className="font-bold text-sm">{pizza.rating}</span>
+                                    </div>
+                                    {pizza.isNewArrival && (
+                                        <div className="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                                            NEW ARRIVAL
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="p-6">
                                 <div className="flex justify-between items-start mb-2">
                                     <h3 className="text-xl font-bold text-dark">{pizza.name}</h3>
-                                    <span className="text-xl font-bold text-primary">${pizza.price}</span>
+                                    <span className="text-xl font-bold text-primary">
+                                        PKR {pizza.prices ? pizza.prices.small : pizza.price}
+                                    </span>
                                 </div>
                                 <p className="text-gray-500 text-sm mb-6 line-clamp-2">{pizza.description}</p>
                                 <Button
